@@ -167,6 +167,9 @@ public class FXMLDocumentController implements Initializable {
                     } else if (colorFigur[1].equals("turm")) {
                         Turm turm = new Turm(GridPane.getColumnIndex(iv), GridPane.getRowIndex(iv), colorFigur[0], field, coloredFields);
                         colorFields(turm.showPossibleFields(), iv);
+                    }else if(colorFigur[1].equals("läufer")){
+                        Läufer läufer = new Läufer(GridPane.getColumnIndex(iv), GridPane.getRowIndex(iv), colorFigur[0], field);
+                        colorFields(läufer.showPossibleFields(), iv);
                     }
 
                 }
@@ -203,21 +206,39 @@ public class FXMLDocumentController implements Initializable {
                 color.setStyle("-fx-border-color: #e22424 ;\n"
                              + "-fx-border-width: 3;"); 
             }
+            try{
+                field.add(color, x, y);
+            }catch(IllegalArgumentException e){
+                
+            }
             
-            field.add(color, x, y);
+            
             coloredFields.add(color);
             color.onMouseClickedProperty().set(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent arg0) {
-                    System.out.println(iv.getId());
-                    System.out.println(color.getStyle());
                     field.getChildren().remove(iv);
                     field.add(iv, x, y);
-//                    if(color.styleProperty())
+                    if(checkIfNodeExists(x, y).getId() != null){
+                        field.getChildren().remove(checkIfNodeExists(x, y));
+                    }
                     field.getChildren().removeAll(coloredFields);
                 }
             });
         }
+    }
+    
+    public Node checkIfNodeExists(int x, int y) {
+        for (Node node : field.getChildren()) {
+            try {
+                if (GridPane.getColumnIndex(node) == x && GridPane.getRowIndex(node) == y) {
+                    return node;
+                }
+            } catch (NullPointerException e) {
+            }
+        }
+        return null;
+
     }
     
 
