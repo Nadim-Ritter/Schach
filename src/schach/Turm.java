@@ -11,14 +11,12 @@ public class Turm {
     private int spalteY;
     private String color;
     private GridPane field;
-    private ArrayList<StackPane> coloredFields;
 
-    public Turm(int zeileX, int spalteY, String color, GridPane field, ArrayList<StackPane> coloredFields) {
+    public Turm(int zeileX, int spalteY, String color, GridPane field) {
         this.zeileX = zeileX;
         this.spalteY = spalteY;
         this.color = color;
         this.field = field;
-        this.coloredFields = coloredFields;
     }
 
     public ArrayList<String> showPossibleFields() {

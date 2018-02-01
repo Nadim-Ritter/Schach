@@ -165,11 +165,17 @@ public class FXMLDocumentController implements Initializable {
                         Bauer bauer = new Bauer(GridPane.getColumnIndex(iv), GridPane.getRowIndex(iv), colorFigur[0], field);
                         colorFields(bauer.showPossibleFields(), iv);
                     } else if (colorFigur[1].equals("turm")) {
-                        Turm turm = new Turm(GridPane.getColumnIndex(iv), GridPane.getRowIndex(iv), colorFigur[0], field, coloredFields);
+                        Turm turm = new Turm(GridPane.getColumnIndex(iv), GridPane.getRowIndex(iv), colorFigur[0], field);
                         colorFields(turm.showPossibleFields(), iv);
                     }else if(colorFigur[1].equals("läufer")){
                         Läufer läufer = new Läufer(GridPane.getColumnIndex(iv), GridPane.getRowIndex(iv), colorFigur[0], field);
                         colorFields(läufer.showPossibleFields(), iv);
+                    }else if(colorFigur[1].equals("dame")){
+                        Dame dame = new Dame(GridPane.getColumnIndex(iv), GridPane.getRowIndex(iv), colorFigur[0], field);
+                        colorFields(dame.showPossibleFields(), iv);
+                    }else if(colorFigur[1].equals("pferd")){
+                        Pferd pferd = new Pferd(GridPane.getColumnIndex(iv), GridPane.getRowIndex(iv), colorFigur[0], field);
+                        colorFields(pferd.showPossibleFields(), iv);
                     }
 
                 }
