@@ -160,12 +160,12 @@ public class FXMLDocumentController implements Initializable {
                 @Override
                 public void handle(MouseEvent arg0) {
                     String colorFigur[] = iv.getId().split("_");
-
+                    
                     if (colorFigur[1].equals("bauer")) {
-                        Bauer bauer = new Bauer(GridPane.getColumnIndex(iv), GridPane.getRowIndex(iv), colorFigur[0]);
+                        Bauer bauer = new Bauer(GridPane.getColumnIndex(iv), GridPane.getRowIndex(iv), colorFigur[0], field);
                         colorFields(bauer.showPossibleFields(), iv);
                     } else if (colorFigur[1].equals("turm")) {
-                        Turm turm = new Turm(GridPane.getColumnIndex(iv), GridPane.getRowIndex(iv), colorFigur[0]);
+                        Turm turm = new Turm(GridPane.getColumnIndex(iv), GridPane.getRowIndex(iv), colorFigur[0], field, coloredFields);
                         colorFields(turm.showPossibleFields(), iv);
                     }
 
@@ -180,59 +180,46 @@ public class FXMLDocumentController implements Initializable {
         field.getChildren().removeAll(coloredFields);
 
         for (int i = 0; i < possibleFields.size(); i++) {
-            String pField[] = possibleFields.get(i).split(";");
+            boolean enemy = false;
+            String possibleField = "";
+            if(possibleFields.get(i).contains("!")){
+                enemy = true;
+                possibleField = possibleFields.get(i).replaceAll("!", "");
+            }else{
+                possibleField = possibleFields.get(i);
+            }
+            
+            String pField[] = possibleField.split(";");
+                        
             int x = Integer.parseInt(pField[0]);
             int y = Integer.parseInt(pField[1]);
 
             StackPane color = new StackPane();
-
-//            if (checkIfEat(x, y) != null) {
-//                color.setStyle("-fx-border-color: #e82727 ;\n"
-//                             + "-fx-border-width: 3;");
-//            } else {
-//                color.setStyle("-fx-border-color: #21a52f ;\n"
-//                             + "-fx-border-width: 3;");
-//            }
-            color.setStyle("-fx-border-color: #21a52f ;\n"
-                    + "-fx-border-width: 3;");
-
-//            if (checkIfEat(x, y) == true) {
-//                System.out.println("test");
-//            }
-            checkIfEat(x, y);
-
-
+            
+            if(enemy == false){
+                color.setStyle("-fx-border-color: #39c615 ;\n"
+                             + "-fx-border-width: 3;");                
+            }else{
+                color.setStyle("-fx-border-color: #e22424 ;\n"
+                             + "-fx-border-width: 3;"); 
+            }
+            
             field.add(color, x, y);
             coloredFields.add(color);
             color.onMouseClickedProperty().set(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent arg0) {
+                    System.out.println(iv.getId());
+                    System.out.println(color.getStyle());
                     field.getChildren().remove(iv);
                     field.add(iv, x, y);
+//                    if(color.styleProperty())
                     field.getChildren().removeAll(coloredFields);
                 }
             });
-
         }
-
     }
-
-    public void checkIfEat(int x, int y) {
-        //boolean check = true;
-        for (Node node : field.getChildren()) {
-            if (GridPane.getColumnIndex(node) == x && GridPane.getRowIndex(node) == y) {
-//                check = true;
-//                return check;
-                System.out.println("true");
-            }else{
-//                check = false;
-//                return check;
-                System.out.println("qwer");
-            }
-        }
-        //return check;
-        
-    }
+    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
