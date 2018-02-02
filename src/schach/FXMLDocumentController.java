@@ -3,28 +3,24 @@ package schach;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 
 public class FXMLDocumentController implements Initializable {
 
     ArrayList<String> cords = new ArrayList();
     ArrayList<StackPane> coloredFields = new ArrayList();
     ArrayList<ImageView> figuren = new ArrayList();
+    String currentColor = "weiss";
+    String otherColor;
 
     @FXML
     private AnchorPane pane;
@@ -141,7 +137,7 @@ public class FXMLDocumentController implements Initializable {
             }
             ImageView iv = new ImageView();
             Image könig = new Image("file:figurenBilder/" + farbe + "_könig.PNG");
-            iv.setId(farbe + "_dame");
+            iv.setId(farbe + "_könig");
             iv.setImage(könig);
             iv.setPreserveRatio(true);
             iv.setFitWidth(30);
@@ -160,22 +156,32 @@ public class FXMLDocumentController implements Initializable {
                 @Override
                 public void handle(MouseEvent arg0) {
                     String colorFigur[] = iv.getId().split("_");
-                    
-                    if (colorFigur[1].equals("bauer")) {
-                        Bauer bauer = new Bauer(GridPane.getColumnIndex(iv), GridPane.getRowIndex(iv), colorFigur[0], field);
-                        colorFields(bauer.showPossibleFields(), iv);
-                    } else if (colorFigur[1].equals("turm")) {
-                        Turm turm = new Turm(GridPane.getColumnIndex(iv), GridPane.getRowIndex(iv), colorFigur[0], field);
-                        colorFields(turm.showPossibleFields(), iv);
-                    }else if(colorFigur[1].equals("läufer")){
-                        Läufer läufer = new Läufer(GridPane.getColumnIndex(iv), GridPane.getRowIndex(iv), colorFigur[0], field);
-                        colorFields(läufer.showPossibleFields(), iv);
-                    }else if(colorFigur[1].equals("dame")){
-                        Dame dame = new Dame(GridPane.getColumnIndex(iv), GridPane.getRowIndex(iv), colorFigur[0], field);
-                        colorFields(dame.showPossibleFields(), iv);
-                    }else if(colorFigur[1].equals("pferd")){
-                        Pferd pferd = new Pferd(GridPane.getColumnIndex(iv), GridPane.getRowIndex(iv), colorFigur[0], field);
-                        colorFields(pferd.showPossibleFields(), iv);
+                    otherColor = "";
+                    if (currentColor.equals("weiss")) {
+                        otherColor = "schwarz";
+                    } else {
+                        otherColor = "weiss";
+                    }
+                    if (colorFigur[0].equals(currentColor)) {
+                        if (colorFigur[1].equals("bauer")) {
+                            Bauer bauer = new Bauer(GridPane.getColumnIndex(iv), GridPane.getRowIndex(iv), colorFigur[0], field);
+                            colorFields(bauer.showPossibleFields(), iv);
+                        } else if (colorFigur[1].equals("turm")) {
+                            Turm turm = new Turm(GridPane.getColumnIndex(iv), GridPane.getRowIndex(iv), colorFigur[0], field);
+                            colorFields(turm.showPossibleFields(), iv);
+                        } else if (colorFigur[1].equals("läufer")) {
+                            Läufer läufer = new Läufer(GridPane.getColumnIndex(iv), GridPane.getRowIndex(iv), colorFigur[0], field);
+                            colorFields(läufer.showPossibleFields(), iv);
+                        } else if (colorFigur[1].equals("dame")) {
+                            Dame dame = new Dame(GridPane.getColumnIndex(iv), GridPane.getRowIndex(iv), colorFigur[0], field);
+                            colorFields(dame.showPossibleFields(), iv);
+                        } else if (colorFigur[1].equals("pferd")) {
+                            Pferd pferd = new Pferd(GridPane.getColumnIndex(iv), GridPane.getRowIndex(iv), colorFigur[0], field);
+                            colorFields(pferd.showPossibleFields(), iv);
+                        } else if (colorFigur[1].equals("könig")) {
+                            König könig = new König(GridPane.getColumnIndex(iv), GridPane.getRowIndex(iv), colorFigur[0], field);
+                            colorFields(könig.showPossibleFields(), iv);
+                        }
                     }
 
                 }
@@ -191,41 +197,41 @@ public class FXMLDocumentController implements Initializable {
         for (int i = 0; i < possibleFields.size(); i++) {
             boolean enemy = false;
             String possibleField = "";
-            if(possibleFields.get(i).contains("!")){
+            if (possibleFields.get(i).contains("!")) {
                 enemy = true;
                 possibleField = possibleFields.get(i).replaceAll("!", "");
-            }else{
+            } else {
                 possibleField = possibleFields.get(i);
             }
-            
+
             String pField[] = possibleField.split(";");
-                        
+
             int x = Integer.parseInt(pField[0]);
             int y = Integer.parseInt(pField[1]);
 
             StackPane color = new StackPane();
-            
-            if(enemy == false){
+
+            if (enemy == false) {
                 color.setStyle("-fx-border-color: #39c615 ;\n"
-                             + "-fx-border-width: 3;");                
-            }else{
+                        + "-fx-border-width: 3;");
+            } else {
                 color.setStyle("-fx-border-color: #e22424 ;\n"
-                             + "-fx-border-width: 3;"); 
+                        + "-fx-border-width: 3;");
             }
-            try{
+            try {
                 field.add(color, x, y);
-            }catch(IllegalArgumentException e){
-                
+            } catch (IllegalArgumentException e) {
+
             }
-            
-            
+
             coloredFields.add(color);
             color.onMouseClickedProperty().set(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent arg0) {
+                    currentColor = otherColor;
                     field.getChildren().remove(iv);
                     field.add(iv, x, y);
-                    if(checkIfNodeExists(x, y).getId() != null){
+                    if (checkIfNodeExists(x, y).getId() != null) {
                         field.getChildren().remove(checkIfNodeExists(x, y));
                     }
                     field.getChildren().removeAll(coloredFields);
@@ -233,7 +239,7 @@ public class FXMLDocumentController implements Initializable {
             });
         }
     }
-    
+
     public Node checkIfNodeExists(int x, int y) {
         for (Node node : field.getChildren()) {
             try {
@@ -246,7 +252,6 @@ public class FXMLDocumentController implements Initializable {
         return null;
 
     }
-    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 
-public class Pferd{
+public class König{
     
     private int zeileX;
     private int spalteY;
     private String color;
     private GridPane field;
 
-    public Pferd(int zeileX, int spalteY, String color, GridPane field) {
+    public König(int zeileX, int spalteY, String color, GridPane field) {
         this.zeileX = zeileX;
         this.spalteY = spalteY;
         this.color = color;
@@ -31,36 +31,36 @@ public class Pferd{
         for (int i = 0; i < 8; i++) {
             switch (i) {
                 case 0:
-                    x = 2;
-                    y = 1;
+                    x = 1;
+                    y = 0;
                     break;
                 case 1:
-                    x = 2;
-                    y = -1;
-                    break;
-                case 2:
-                    x = -2;
+                    x = 1;
                     y = 1;
                     break;
-                case 3:
-                    x = -2;
+                case 2:
+                    x = 1;
                     y = -1;
                     break;
+                case 3:
+                    x = 0;
+                    y = 1;
+                    break;
                 case 4:
-                    x = 1;
-                    y = 2;
+                    x = 0;
+                    y = -1;
                     break;
                 case 5:
-                    x = 1;
-                    y = -2;
+                    x = -1;
+                    y = 1;
                     break;
                 case 6:
                     x = -1;
-                    y = 2;
+                    y = 0;
                     break;
                 case 7:
                     x = -1;
-                    y = -2;
+                    y = -1;
                     break;
                 default:
                     break;
@@ -93,5 +93,7 @@ public class Pferd{
         return null;
 
     }
+    
+    
 
 }

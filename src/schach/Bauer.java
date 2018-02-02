@@ -37,7 +37,7 @@ public class Bauer {
                 }
             }
             String checkColor = "";
-            if(checkIfNodeExists(zeileX + 1, spalteY + 1) != null){
+            if(checkIfNodeExists(zeileX + 1, spalteY + 1) != null && checkIfNodeExists(zeileX + 1, spalteY + 1).getId() != null){
                 String temp[] = checkIfNodeExists(zeileX + 1, spalteY + 1).getId().split("_");
                 checkColor = temp[0];
             }
@@ -46,7 +46,7 @@ public class Bauer {
             }
             
             String checkColor2 = "";
-            if(checkIfNodeExists(zeileX - 1, spalteY + 1) != null){
+            if(checkIfNodeExists(zeileX - 1, spalteY + 1) != null && checkIfNodeExists(zeileX - 1, spalteY + 1).getId() != null){
                 String temp[] = checkIfNodeExists(zeileX - 1, spalteY + 1).getId().split("_");
                 checkColor2 = temp[0];
             }
@@ -64,7 +64,7 @@ public class Bauer {
             }
             
             String checkColor = "";
-            if(checkIfNodeExists(zeileX + 1, spalteY - 1) != null){
+            if(checkIfNodeExists(zeileX + 1, spalteY - 1) != null && checkIfNodeExists(zeileX + 1, spalteY - 1).getId() != null){
                 String temp[] = checkIfNodeExists(zeileX + 1, spalteY - 1).getId().split("_");
                 checkColor = temp[0];
             }
@@ -73,7 +73,7 @@ public class Bauer {
             }
             
             String checkColor2 = "";
-            if(checkIfNodeExists(zeileX - 1, spalteY - 1) != null){
+            if(checkIfNodeExists(zeileX - 1, spalteY - 1) != null && checkIfNodeExists(zeileX - 1, spalteY - 1).getId() != null){
                 String temp[] = checkIfNodeExists(zeileX - 1, spalteY - 1).getId().split("_");
                 checkColor2 = temp[0];
             }
