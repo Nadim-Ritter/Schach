@@ -43,6 +43,7 @@ public class Dame{
             }
             if (checkColor.equals(otherColor)) {
                 possibleFields.add((zeileX + count) + ";" + (spalteY + count) + "!");
+                
                 break;
             }
             possibleFields.add((zeileX + count) + ";" + (spalteY + count));

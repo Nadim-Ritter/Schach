@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 
-public class König{
-    
+public class König {
+
     private int zeileX;
     private int spalteY;
     private String color;
@@ -17,17 +17,18 @@ public class König{
         this.color = color;
         this.field = field;
     }
-    
+
     public ArrayList<String> showPossibleFields() {
         ArrayList<String> possibleFields = new ArrayList();
         String otherColor = "";
-        if(color.equals("weiss")){
+        if (color.equals("weiss")) {
             otherColor = "schwarz";
-        }else{
+        } else {
             otherColor = "weiss";
         }
         int x = 0;
         int y = 0;
+
         for (int i = 0; i < 8; i++) {
             switch (i) {
                 case 0:
@@ -65,18 +66,18 @@ public class König{
                 default:
                     break;
             }
-            
+
             String checkColor = "";
             if (checkIfNodeExists(zeileX + x, spalteY + y) != null && checkIfNodeExists(zeileX + x, spalteY + y).getId() != null) {
                 String temp[] = checkIfNodeExists(zeileX + x, spalteY + y).getId().split("_");
                 checkColor = temp[0];
-            }           
+            }
             if (checkColor.equals(otherColor)) {
                 possibleFields.add((zeileX + x) + ";" + (spalteY + y) + "!");
-            }else if(!checkColor.equals(color) && zeileX + x >= 0 && spalteY + y >= 0 && zeileX + x <= 7 && spalteY + y <= 7){
-                possibleFields.add((zeileX + x) + ";" + (spalteY + y));                
-            }           
-        }        
+            } else if (!checkColor.equals(color) && zeileX + x >= 0 && spalteY + y >= 0 && zeileX + x <= 7 && spalteY + y <= 7) {
+                possibleFields.add((zeileX + x) + ";" + (spalteY + y));
+            }
+        }
 
         return possibleFields;
     }
@@ -93,7 +94,4 @@ public class König{
         return null;
 
     }
-    
-    
-
 }
