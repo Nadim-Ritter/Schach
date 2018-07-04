@@ -74,7 +74,7 @@ public class Turm {
             }
             if (checkColor.equals(color)) {
                 break;
-            }
+            }   
             if (checkColor.equals(otherColor)) {
                 possibleFields.add((zeileX - count3) + ";" + spalteY + "!");
                 break;

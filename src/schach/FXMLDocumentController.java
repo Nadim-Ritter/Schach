@@ -33,6 +33,7 @@ public class FXMLDocumentController implements Initializable {
         
         field.setStyle("-fx-background-image: url('file:figurenBilder/schachbrett.jpg')");
         
+        int grösse = 35;
         int zeileX = 0;
         for (int i = 0; i < 16; i++) {
             String farbe;
@@ -52,7 +53,7 @@ public class FXMLDocumentController implements Initializable {
             iv.setId(farbe + "_bauer");
             iv.setImage(bauer);
             iv.setPreserveRatio(true);
-            iv.setFitWidth(30);
+            iv.setFitWidth(grösse);
             field.add(iv, zeileX, spalteY);
             figuren.add(iv);
             zeileX++;
@@ -71,7 +72,7 @@ public class FXMLDocumentController implements Initializable {
             iv.setId(farbe + "_turm");
             iv.setImage(turm);
             iv.setPreserveRatio(true);
-            iv.setFitWidth(30);
+            iv.setFitWidth(grösse);
             field.add(iv, turmCordsx[i], turmCordsy[i]);
             figuren.add(iv);
         }
@@ -89,7 +90,7 @@ public class FXMLDocumentController implements Initializable {
             iv.setId(farbe + "_pferd");
             iv.setImage(pferd);
             iv.setPreserveRatio(true);
-            iv.setFitWidth(30);
+            iv.setFitWidth(grösse);
             field.add(iv, pferdCordsx[i], pferdCordsy[i]);
             figuren.add(iv);
         }
@@ -107,7 +108,7 @@ public class FXMLDocumentController implements Initializable {
             iv.setId(farbe + "_läufer");
             iv.setImage(läufer);
             iv.setPreserveRatio(true);
-            iv.setFitWidth(30);
+            iv.setFitWidth(grösse);
             field.add(iv, läuferCordsx[i], läuferCordsy[i]);
             figuren.add(iv);
         }
@@ -125,7 +126,7 @@ public class FXMLDocumentController implements Initializable {
             iv.setId(farbe + "_dame");
             iv.setImage(dame);
             iv.setPreserveRatio(true);
-            iv.setFitWidth(30);
+            iv.setFitWidth(grösse);
             field.add(iv, dameCordsx[i], dameCordsy[i]);
             figuren.add(iv);
         }
@@ -143,7 +144,7 @@ public class FXMLDocumentController implements Initializable {
             iv.setId(farbe + "_könig");
             iv.setImage(könig);
             iv.setPreserveRatio(true);
-            iv.setFitWidth(30);
+            iv.setFitWidth(grösse);
             field.add(iv, königCordsx[i], königCordsy[i]);
             figuren.add(iv);
         }
@@ -238,7 +239,9 @@ public class FXMLDocumentController implements Initializable {
                         } else if (colorFigur[1].equals("turm")) {
                             Turm turm = new Turm(GridPane.getColumnIndex(field.getChildren().get(u)), GridPane.getRowIndex(field.getChildren().get(u)), colorFigur[0], field);
                             for (int z = 0; z < turm.showPossibleFields().size(); z++) {
+                                System.out.println(turm.showPossibleFields());
                                 for (int s = 0; s < possibleFields.size(); s++) {
+                                    System.out.println(possibleFields.get(s));
                                     if (turm.showPossibleFields().get(z).equals(possibleFields.get(s))) {
                                         possibleFields.remove(s);
                                     }
